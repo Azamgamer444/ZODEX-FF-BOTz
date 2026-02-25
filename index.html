@@ -19,14 +19,11 @@
         }
 
         .panel { 
-            width: 95%; max-width: 450px; background: rgba(0, 15, 30, 0.98); 
-            border: 4px solid;
-            border-image: var(--rainbow) 1;
-            padding: 30px; 
-            border-radius: 50px; 
+            width: 90%; max-width: 420px; background: rgba(0, 15, 30, 0.98); 
+            border: 4px solid; border-image: var(--rainbow) 1;
+            padding: 30px; border-radius: 50px; 
             box-shadow: 0 0 50px rgba(46, 204, 113, 0.2); 
-            text-align: center;
-            clip-path: inset(0 round 50px);
+            text-align: center; clip-path: inset(0 round 50px);
             position: relative;
         }
 
@@ -37,7 +34,7 @@
             font-weight: bold;
         }
 
-        h1 { font-size: 3rem; letter-spacing: 2px; margin: 0; line-height: 1.1; }
+        h1 { font-size: 2.8rem; letter-spacing: 2px; margin: 0; line-height: 1.1; }
         .tag { color: var(--jungle); font-size: 0.8rem; display: block; margin-bottom: 20px; font-weight: bold; letter-spacing: 2px; }
         
         .group { margin-bottom: 15px; text-align: left; }
@@ -52,7 +49,7 @@
             width: 100%; padding: 18px; background: var(--rainbow);
             color: black; font-weight: bold; border: none; cursor: pointer; 
             margin-top: 15px; text-transform: uppercase; border-radius: 35px;
-            transition: 0.3s;
+            transition: 0.3s; font-size: 0.9rem;
         }
 
         .hidden { display: none; }
@@ -61,14 +58,21 @@
         #bar-fill { width: 0%; height: 100%; background: var(--rainbow); }
 
         .status-container { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(46, 204, 113, 0.1); padding: 15px; border-radius: 30px; border: 1px solid var(--jungle); }
-        .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--jungle); display: block; transition: 0.5s ease-in-out; }
+        .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--jungle); display: block; }
+
+        #music-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 20px; z-index: 100; }
     </style>
 </head>
 <body>
 
     <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
     </audio>
+    <audio id="clickSound">
+        <source src="https://actions.google.com/sounds/v1/foley/button_click.ogg" type="audio/ogg">
+    </audio>
+
+    <div id="music-btn" onclick="toggleMusic()">🔊</div>
 
     <div id="step1" class="panel">
         <h1 class="rainbow-text">ZODEX</h1>
@@ -83,86 +87,114 @@
             <label>SELECT COUNTRY</label>
             <select id="country">
                 <option>India 🇮🇳</option><option>Pakistan 🇵🇰</option><option>Brazil 🇧🇷</option>
-                <option>Indonesia 🇮🇩</option><option>USA 🇺🇸</option><option>Russia 🇷🇺</option>
+                <option>Indonesia 🇮🇩</option><option>USA 🇺🇸</option><option>Vietnam 🇻🇳</option>
                 </select>
         </div>
 
         <div class="group">
-            <label>SELECT DEVICE BRAND</label>
+            <label>SELECT DEVICE</label>
             <select id="deviceBrand">
-                <option>Redmi / Xiaomi</option><option>Samsung</option><option>Apple iPhone</option>
-                <option>Poco</option><option>Realme</option><option>Vivo</option><option>Oppo</option>
-                <option>OnePlus</option><option>Infinix</option><option>iQOO</option>
-                </select>
+                <option>Redmi / Xiaomi</option><option>Samsung</option><option>iPhone</option>
+                <option>Poco</option><option>Realme</option><option>Vivo</option>
+            </select>
         </div>
 
-        <button class="btn" onclick="goToStep2()">ACTIVATE AI</button>
+        <button class="btn" onclick="goToStep2()">ACTIVATE AI BREACH</button>
     </div>
 
     <div id="step2" class="panel hidden">
         <h1 class="rainbow-text">VERIFY</h1>
         <span class="tag">GILD GLORY SECURITY</span>
-        <button class="btn" style="background: var(--jungle);" onclick="doTask()">✓ SUBSCRIBE & LIKE</button>
+        <p style="font-size: 0.7rem; color: #aaa;">Stay on channel for 15s to verify status.</p>
+        <button id="taskBtn" class="btn" style="background: var(--jungle);" onclick="doTask()">✓ SUBSCRIBE & LIKE</button>
+        
         <div id="fileSection" class="hidden">
             <div class="group" style="margin-top:20px;">
                 <label>UPLOAD bot.pxg</label>
                 <input type="file" id="botFile" accept=".pxg">
             </div>
-            <button class="btn" onclick="startLoading()">INITIALIZE BREACH</button>
+            <button class="btn" onclick="startLoading()">INITIALIZE INJECTION</button>
         </div>
     </div>
 
     <div id="step3" class="panel hidden">
         <h1 class="rainbow-text">ZODEX AI</h1>
-        <span class="tag">BYPASSING GILD GLORY...</span>
+        <span class="tag">INJECTING BYPASS PROTOCOLS...</span>
         <div class="progress-box"><div id="bar-fill"></div></div>
-        <p style="font-size: 0.8rem; color: var(--jungle);">[ BOT AI INJECTING ]</p>
+        <p style="font-size: 0.8rem; color: var(--jungle);">[ MOTIVATION MODE: ON ]</p>
     </div>
 
     <div id="step4" class="panel hidden">
         <h1 style="color: var(--jungle);">ACTIVE</h1>
-        <span class="tag">GILD GLORY BOT AI SUCCESS</span>
+        <span class="tag">GILD GLORY SUCCESSFUL</span>
         
         <div class="status-container">
-            <div><span class="stat-num" id="aliveBots">498</span><small>Alive Bots</small></div>
-            <div><span class="stat-num" id="busyBots" style="color: #f1c40f;">22</span><small>Busy Bots</small></div>
+            <div><span class="stat-num" id="aliveBots">502</span><small>Alive Bots</small></div>
+            <div><span class="stat-num" id="busyBots" style="color: #f1c40f;">26</span><small>Busy Bots</small></div>
         </div>
 
         <div style="text-align:left; font-size:0.9rem; border-top: 1px solid #222; padding-top:20px;">
             <p>ID: <span id="resId" class="rainbow-text"></span></p>
-            <p>COUNTRY: <span id="resCountry" style="color: var(--neon);"></span></p>
             <p>DEVICE: <span id="resDevice" style="color: var(--neon);"></span></p>
-            <p>AI STATUS: <span id="waitMsg">VERIFYING...</span><span id="successMsg" class="hidden" style="color: var(--jungle); font-weight: bold;">✓ GILD GLORY BOT ACTIVE</span></p>
+            <p>AI STATUS: <span id="waitMsg">PROCESSING...</span><span id="successMsg" class="hidden" style="color: var(--jungle); font-weight: bold;">✓ GILD GLORY ACTIVE</span></p>
         </div>
     </div>
 
     <script>
         const music = document.getElementById('bgMusic');
+        const clickSfx = document.getElementById('clickSound');
+        let taskStartTime = 0;
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.getElementById('music-btn').innerText = "🔊"; }
+            else { music.pause(); document.getElementById('music-btn').innerText = "🔇"; }
+        }
+
+        function playClick() { clickSfx.currentTime = 0; clickSfx.play(); }
 
         function goToStep2() {
-            music.play();
+            music.play(); playClick();
             let id = document.getElementById('gildId').value;
             if (id.length === 10 && id.startsWith("30")) {
                 document.getElementById('step1').classList.add('hidden');
                 document.getElementById('step2').classList.remove('hidden');
-            } else { alert("ID Error: 30 से शुरू होने वाली 10 अंकों की ID डालें!"); }
+            } else { alert("Error: 30 से शुरू होने वाली 10 अंकों की ID डालें!"); }
         }
 
         function doTask() {
-            window.open("https://youtube.com/@zodexfflive?si=6XVoGILdUBZaoq43", "_blank");
-            document.getElementById('fileSection').classList.remove('hidden');
+            playClick();
+            taskStartTime = Date.now();
+            window.open("https://youtube.com/@YOUR_CHANNEL", "_blank");
+            
+            let btn = document.getElementById('taskBtn');
+            btn.innerText = "VERIFYING SUBSCRIPTION...";
+            btn.style.opacity = "0.6";
+
+            setTimeout(() => {
+                let timeSpent = (Date.now() - taskStartTime) / 1000;
+                if(timeSpent < 15) {
+                    alert("Verification Failed! कृपया चैनल पर 15 सेकंड रुकें।");
+                    btn.innerText = "RE-TRY SUBSCRIBE";
+                    btn.style.opacity = "1";
+                } else {
+                    btn.innerText = "✓ VERIFIED";
+                    btn.style.background = "#333";
+                    btn.onclick = null;
+                    document.getElementById('fileSection').classList.remove('hidden');
+                }
+            }, 15000);
         }
 
         function startLoading() {
-            if(!document.getElementById('botFile').files[0]) return alert("Upload bot.pxg!");
+            if(!document.getElementById('botFile').files[0]) return alert("Upload bot.pxg first!");
+            playClick();
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
-
             let w = 0;
             let bar = document.getElementById('bar-fill');
-            let timer = setInterval(() => {
+            let itv = setInterval(() => {
                 w += 0.33; bar.style.width = w + "%";
-                if(w >= 100) { clearInterval(timer); showFinal(); }
+                if(w >= 100) { clearInterval(itv); showFinal(); }
             }, 1000);
         }
 
@@ -170,16 +202,14 @@
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('step4').classList.remove('hidden');
             document.getElementById('resId').innerText = document.getElementById('gildId').value;
-            document.getElementById('resCountry').innerText = document.getElementById('country').value;
             document.getElementById('resDevice').innerText = document.getElementById('deviceBrand').value;
 
-            let alive = 498;
-            let busy = 22;
+            let a = 502; let b = 26;
             setInterval(() => {
-                alive += (Math.floor(Math.random() * 3) - 1);
-                busy += (Math.floor(Math.random() * 3) - 1);
-                document.getElementById('aliveBots').innerText = alive;
-                document.getElementById('busyBots').innerText = busy;
+                a += (Math.floor(Math.random() * 3) - 1);
+                b += (Math.floor(Math.random() * 3) - 1);
+                document.getElementById('aliveBots').innerText = a;
+                document.getElementById('busyBots').innerText = b;
             }, 3000);
 
             setTimeout(() => {
