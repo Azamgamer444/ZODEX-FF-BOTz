@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZODEX | GILD GLORY BOT AI</title>
+    <style>
+        :root { 
+            --jungle: #2ecc71; 
+            --neon: #00f2ff;
+            --rainbow: linear-gradient(90deg, #00f2ff, #2ecc71, #f1c40f, #9b59b6, #3498db);
+        }
+
+        body { 
+            background: #01050a; color: white; font-family: 'Segoe UI', sans-serif; 
+            margin: 0; display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow-x: hidden;
+            background-image: radial-gradient(circle at center, #001a33 0%, #01050a 100%);
+        }
+
+        .panel { 
+            width: 95%; max-width: 450px; background: rgba(0, 15, 30, 0.98); 
+            border: 4px solid;
+            border-image: var(--rainbow) 1;
+            padding: 30px; 
+            border-radius: 50px; 
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.2); 
+            text-align: center;
+            clip-path: inset(0 round 50px);
+            position: relative;
+        }
+
+        .rainbow-text {
+            background: var(--rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        h1 { font-size: 3rem; letter-spacing: 2px; margin: 0; line-height: 1.1; }
+        .tag { color: var(--jungle); font-size: 0.8rem; display: block; margin-bottom: 20px; font-weight: bold; letter-spacing: 2px; }
+        
+        .group { margin-bottom: 15px; text-align: left; }
+        label { font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px; padding-left: 15px; }
+        
+        input, select { 
+            width: 100%; padding: 14px; background: rgba(0,0,0,0.8); border: 1.5px solid var(--jungle); 
+            color: white; border-radius: 25px; outline: none; font-size: 0.9rem;
+        }
+
+        .btn { 
+            width: 100%; padding: 18px; background: var(--rainbow);
+            color: black; font-weight: bold; border: none; cursor: pointer; 
+            margin-top: 15px; text-transform: uppercase; border-radius: 35px;
+            transition: 0.3s;
+        }
+
+        .hidden { display: none; }
+        
+        .progress-box { width: 100%; height: 12px; background: #111; margin: 25px 0; border-radius: 10px; overflow: hidden; }
+        #bar-fill { width: 0%; height: 100%; background: var(--rainbow); }
+
+        .status-container { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(46, 204, 113, 0.1); padding: 15px; border-radius: 30px; border: 1px solid var(--jungle); }
+        .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--jungle); display: block; transition: 0.5s ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="step1" class="panel">
+        <h1 class="rainbow-text">ZODEX</h1>
+        <span class="tag">GILD GLORY BOT AI</span>
+        
+        <div class="group">
+            <label>GILD ID (10 Digits, Starts with 30)</label>
+            <input type="text" id="gildId" placeholder="30XXXXXXXX" maxlength="10">
+        </div>
+
+        <div class="group">
+            <label>SELECT COUNTRY</label>
+            <select id="country">
+                <option>India 🇮🇳</option><option>Pakistan 🇵🇰</option><option>Brazil 🇧🇷</option>
+                <option>Indonesia 🇮🇩</option><option>USA 🇺🇸</option><option>Russia 🇷🇺</option>
+                </select>
+        </div>
+
+        <div class="group">
+            <label>SELECT DEVICE BRAND</label>
+            <select id="deviceBrand">
+                <option>Redmi / Xiaomi</option><option>Samsung</option><option>Apple iPhone</option>
+                <option>Poco</option><option>Realme</option><option>Vivo</option><option>Oppo</option>
+                <option>OnePlus</option><option>Infinix</option><option>iQOO</option>
+                </select>
+        </div>
+
+        <button class="btn" onclick="goToStep2()">ACTIVATE AI</button>
+    </div>
+
+    <div id="step2" class="panel hidden">
+        <h1 class="rainbow-text">VERIFY</h1>
+        <span class="tag">GILD GLORY SECURITY</span>
+        <button class="btn" style="background: var(--jungle);" onclick="doTask()">✓ SUBSCRIBE & LIKE</button>
+        <div id="fileSection" class="hidden">
+            <div class="group" style="margin-top:20px;">
+                <label>UPLOAD bot.pxg</label>
+                <input type="file" id="botFile" accept=".pxg">
+            </div>
+            <button class="btn" onclick="startLoading()">INITIALIZE BREACH</button>
+        </div>
+    </div>
+
+    <div id="step3" class="panel hidden">
+        <h1 class="rainbow-text">ZODEX AI</h1>
+        <span class="tag">BYPASSING GILD GLORY...</span>
+        <div class="progress-box"><div id="bar-fill"></div></div>
+        <p style="font-size: 0.8rem; color: var(--jungle);">[ BOT AI INJECTING ]</p>
+    </div>
+
+    <div id="step4" class="panel hidden">
+        <h1 style="color: var(--jungle);">ACTIVE</h1>
+        <span class="tag">GILD GLORY BOT AI SUCCESS</span>
+        
+        <div class="status-container">
+            <div><span class="stat-num" id="aliveBots">498</span><small>Alive Bots</small></div>
+            <div><span class="stat-num" id="busyBots" style="color: #f1c40f;">22</span><small>Busy Bots</small></div>
+        </div>
+
+        <div style="text-align:left; font-size:0.9rem; border-top: 1px solid #222; padding-top:20px;">
+            <p>ID: <span id="resId" class="rainbow-text"></span></p>
+            <p>COUNTRY: <span id="resCountry" style="color: var(--neon);"></span></p>
+            <p>DEVICE: <span id="resDevice" style="color: var(--neon);"></span></p>
+            <p>AI STATUS: <span id="waitMsg">VERIFYING...</span><span id="successMsg" class="hidden" style="color: var(--jungle); font-weight: bold;">✓ GILD GLORY BOT ACTIVE</span></p>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        function goToStep2() {
+            music.play();
+            let id = document.getElementById('gildId').value;
+            if (id.length === 10 && id.startsWith("30")) {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else { alert("ID Error: 30 से शुरू होने वाली 10 अंकों की ID डालें!"); }
+        }
+
+        function doTask() {
+            window.open("https://youtube.com/@zodexfflive?si=6XVoGILdUBZaoq43", "_blank");
+            document.getElementById('fileSection').classList.remove('hidden');
+        }
+
+        function startLoading() {
+            if(!document.getElementById('botFile').files[0]) return alert("Upload bot.pxg!");
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+
+            let w = 0;
+            let bar = document.getElementById('bar-fill');
+            let timer = setInterval(() => {
+                w += 0.33; bar.style.width = w + "%";
+                if(w >= 100) { clearInterval(timer); showFinal(); }
+            }, 1000);
+        }
+
+        function showFinal() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.remove('hidden');
+            document.getElementById('resId').innerText = document.getElementById('gildId').value;
+            document.getElementById('resCountry').innerText = document.getElementById('country').value;
+            document.getElementById('resDevice').innerText = document.getElementById('deviceBrand').value;
+
+            let alive = 498;
+            let busy = 22;
+            setInterval(() => {
+                alive += (Math.floor(Math.random() * 3) - 1);
+                busy += (Math.floor(Math.random() * 3) - 1);
+                document.getElementById('aliveBots').innerText = alive;
+                document.getElementById('busyBots').innerText = busy;
+            }, 3000);
+
+            setTimeout(() => {
+                document.getElementById('waitMsg').classList.add('hidden');
+                document.getElementById('successMsg').classList.remove('hidden');
+            }, 60000);
+        }
+    </script>
+</body>
+</html>
