@@ -144,7 +144,7 @@
         
 const music = document.getElementById('bgMusic');
 const clickSfx = document.getElementById('clickSound');
-const BOT_URL = "https://40dfb2923975413887126fc125487372.pella.app"; 
+const BOT_URL = "https://www.pella.app/server/40dfb2923975413887126fc125487372"; 
 
 let taskStartTime = 0;
 
@@ -168,7 +168,7 @@ async function submitToBot() {
     }
 
     try {
-        const response = await fetch(`${BOT_URL}/add_guild`, {
+        const response = await fetch(`${https://www.pella.app/server/40dfb2923975413887126fc125487372/overview}/add_guild`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
