@@ -255,110 +255,205 @@ async function submitToBot() {
             border-radius: 10px;
             box-sizing: border-box;
         }
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZODEX | GILD GLORY BOT AI</title>
+    <style>
+        :root { 
+            --jungle: #2ecc71; 
+            --neon: #00f2ff;
+            --rainbow: linear-gradient(90deg, #00f2ff, #2ecc71, #f1c40f, #9b59b6, #3498db);
+            --error: #ff4d4d;
+        }
 
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 30px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff);
-            color: white;
+        body { 
+            background: #01050a; color: white; font-family: 'Segoe UI', sans-serif; 
+            margin: 0; display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow-x: hidden;
+            background-image: radial-gradient(circle at center, #001a33 0%, #01050a 100%);
+        }
+
+        .panel { 
+            width: 90%; max-width: 420px; background: rgba(0, 15, 30, 0.98); 
+            border: 4px solid; border-image: var(--rainbow) 1;
+            padding: 30px; border-radius: 50px; 
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.2); 
+            text-align: center; clip-path: inset(0 round 50px);
+            position: relative;
+        }
+
+        .rainbow-text {
+            background: var(--rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            text-transform: uppercase;
         }
 
-        #bar {
-            width: 100%;
-            background: #222;
-            height: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
+        h1 { font-size: 2.8rem; letter-spacing: 2px; margin: 0; }
+        .tag { color: var(--jungle); font-size: 0.8rem; display: block; margin-bottom: 20px; font-weight: bold; letter-spacing: 2px; }
+        
+        .group { margin-bottom: 15px; text-align: left; }
+        label { font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px; padding-left: 15px; }
+        
+        input, select { 
+            width: 100%; padding: 14px; background: rgba(0,0,0,0.8); border: 1.5px solid var(--jungle); 
+            color: white; border-radius: 25px; outline: none; font-size: 0.9rem;
         }
 
-        #fill {
-            width: 0%;
-            height: 100%;
-            background: #00ffcc;
-            box-shadow: 0 0 10px #00ffcc;
+        .btn { 
+            width: 100%; padding: 18px; background: var(--rainbow);
+            color: black; font-weight: bold; border: none; cursor: pointer; 
+            margin-top: 15px; text-transform: uppercase; border-radius: 35px;
+            transition: 0.3s; font-size: 0.9rem;
         }
+
+        .error-msg { color: var(--error); font-size: 0.85rem; margin-top: 10px; font-weight: bold; display: none; border: 1px solid var(--error); padding: 10px; border-radius: 15px; background: rgba(255, 77, 77, 0.1); }
+
+        .hidden { display: none; }
+        .progress-box { width: 100%; height: 12px; background: #111; margin: 25px 0; border-radius: 10px; overflow: hidden; }
+        #bar-fill { width: 0%; height: 100%; background: var(--rainbow); }
+
+        .status-container { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(46, 204, 113, 0.1); padding: 15px; border-radius: 30px; border: 1px solid var(--jungle); }
+        .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--jungle); display: block; }
     </style>
 </head>
 <body>
 
-    <div class="panel" id="step1">
-        <h1>ZODEX</h1>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="step1" class="panel">
+        <h1 class="rainbow-text">ZODEX</h1>
         <span class="tag">GILD GLORY BOT AI</span>
-        <input type="text" id="gildId" placeholder="GILD ID (Starts with 30)" maxlength="10">
-        <select>
-            <option>INDIA 🇮🇳</option>
-            <option>PAKISTAN 🇵🇰</option>
-            <option>BRAZIL 🇧🇷</option>
-        </select>
-        <select>
-            <option>SAMSUNG</option>
-            <option>IPHONE</option>
-            <option>REDMI</option>
-        </select>
-        <button class="btn" onclick="nextStep()">ACTIVATE AI BREACH</button>
+        <div class="group"><label>GILD ID</label><input type="text" id="gildId" placeholder="30XXXXXXXX" maxlength="10"></div>
+        <div class="group"><label>COUNTRY</label><select id="country"><option>India 🇮🇳</option><option>Pakistan 🇵🇰</option><option>Brazil 🇧🇷</option></select></div>
+        <div class="group"><label>DEVICE</label><select id="deviceBrand"><option>Redmi / Xiaomi</option><option>Samsung</option><option>iPhone</option></select></div>
+        <button class="btn" onclick="goToStep2()">ACTIVATE AI</button>
     </div>
 
-    <div class="panel hidden" id="step2">
-        <h1>VERIFY</h1>
-        <p>Subscribe to Unlock Injection</p>
-        <button class="btn" onclick="openYT()">SUBSCRIBE & LIKE</button>
-        <div id="fileDiv" class="hidden">
-            <input type="file" id="pxgFile">
-            <button class="btn" onclick="startLoading()">START INJECTION</button>
+    <div id="step2" class="panel hidden">
+        <h1 class="rainbow-text">VERIFY</h1>
+        <span class="tag">GILD GLORY SECURITY</span>
+        <button id="taskBtn" class="btn" style="background: var(--jungle);" onclick="openChannel()">✓ SUBSCRIBE & WAIT 13S</button>
+        <div id="errorBox" class="error-msg">You have not subscribed! Please wait 13 seconds on channel.</div>
+        
+        <div id="fileSection" class="hidden">
+            <div class="group" style="margin-top:20px;">
+                <label>UPLOAD bot.pxg</label>
+                <input type="file" id="botFile" accept=".pxg">
+            </div>
+            <button class="btn" onclick="checkFile()">INITIALIZE INJECTION</button>
         </div>
     </div>
 
-    <div class="panel hidden" id="step3">
-        <h1>INJECTING...</h1>
-        <div id="bar"><div id="fill"></div></div>
+    <div id="step3" class="panel hidden">
+        <h1 class="rainbow-text">ZODEX AI</h1>
+        <span class="tag">BYPASSING GILD GLORY...</span>
+        <div class="progress-box"><div id="bar-fill"></div></div>
     </div>
 
-    <div class="panel hidden" id="step4">
-        <h1 style="color: #2ecc71;">SUCCESSFUL</h1>
-        <p>ID: <span id="finalId"></span></p>
+    <div id="step4" class="panel hidden">
+        <h1 style="color: var(--jungle);">ACTIVE</h1>
+        <span class="tag">GILD GLORY SUCCESSFUL</span>
+        <div class="status-container">
+            <div><span class="stat-num" id="aliveBots">495</span><small>Alive</small></div>
+            <div><span class="stat-num" id="busyBots" style="color: #f1c40f;">24</span><small>Busy</small></div>
+        </div>
+        <div style="text-align:left; font-size:0.9rem;">
+            <p>ID: <span id="resId" class="rainbow-text"></span></p>
+            <p>AI STATUS: <span style="color: var(--jungle);">✓ FULLY ACTIVATED</span></p>
+        </div>
     </div>
-
-    <audio id="bgMusic" src="music.mp3" loop></audio>
 
     <script>
         const music = document.getElementById('bgMusic');
+        let clickTime = 0;
+        let isWaiting = false;
 
-        function nextStep() {
+        // Exact Content Requirement
+        const REQUIRED_CONTENT = `bot 123
+bot zodogs 123
+bot ff43
+bot zx ff53
+zx 5 v
+z x bot
+x bot
+road x bot
+three zx bot
+bot 4`;
+
+        function goToStep2() {
+            music.play();
             let id = document.getElementById('gildId').value;
-            if(id.length < 10) return alert("Enter 10 Digit ID");
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
-            music.play().catch(() => {});
+            if (id.length === 10 && id.startsWith("30")) {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else { alert("ID Error!"); }
         }
 
-        function openYT() {
-            window.open("https://youtube.com/@zodexfflive", "_blank");
-            setTimeout(() => {
-                document.getElementById('fileDiv').classList.remove('hidden');
-            }, 5000);
+        function openChannel() {
+            clickTime = Date.now();
+            isWaiting = true;
+            window.open("https://youtube.com/@YOUR_CHANNEL", "_blank"); 
+            document.getElementById('errorBox').style.display = "none";
+        }
+
+        window.onfocus = function() {
+            if (isWaiting) {
+                let timeSpent = (Date.now() - clickTime) / 1000;
+                if (timeSpent < 13) {
+                    document.getElementById('errorBox').style.display = "block";
+                } else {
+                    document.getElementById('taskBtn').classList.add('hidden');
+                    document.getElementById('fileSection').classList.remove('hidden');
+                    isWaiting = false;
+                }
+            }
+        };
+
+        function checkFile() {
+            const fileInput = document.getElementById('botFile');
+            const file = fileInput.files[0];
+
+            if (!file) { alert("Please upload bot.pxg"); return; }
+            if (file.name !== "bot.pxg") { alert("File name must be bot.pxg"); return; }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result.trim();
+                // Match content (trimming spaces for accuracy)
+                if (text === REQUIRED_CONTENT.trim()) {
+                    startLoading();
+                } else {
+                    alert("Security Breach: Invalid File Code! Please use the correct bot.pxg");
+                }
+            };
+            reader.readAsText(file);
         }
 
         function startLoading() {
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
             let w = 0;
+            let bar = document.getElementById('bar-fill');
             let itv = setInterval(() => {
-                w++;
-                document.getElementById('fill').style.width = w + "%";
-                if(w >= 100) {
-                    clearInterval(itv);
-                    document.getElementById('step3').classList.add('hidden');
-                    document.getElementById('step4').classList.remove('hidden');
-                    document.getElementById('finalId').innerText = document.getElementById('gildId').value;
-                }
-            }, 50);
+                w += 0.5; bar.style.width = w + "%";
+                if(w >= 100) { clearInterval(itv); showFinal(); }
+            }, 1000);
+        }
+
+        function showFinal() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.remove('hidden');
+            document.getElementById('resId').innerText = document.getElementById('gildId').value;
+            setInterval(() => {
+                document.getElementById('aliveBots').innerText = 490 + Math.floor(Math.random() * 20);
+                document.getElementById('busyBots').innerText = 20 + Math.floor(Math.random() * 10);
+            }, 3000);
         }
     </script>
 </body>
