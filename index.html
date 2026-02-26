@@ -143,19 +143,14 @@
     <script>
 const music = document.getElementById('bgMusic');
 const clickSfx = document.getElementById('clickSound');
-// Pella App की लिंक
-const BOT_URL = "https://40dfb2923975413887.pella.app"; 
+// Pella App की सही लिंक यहाँ है
+const BOT_URL = "https://40dfb2923975413887126fc125487372.pella.app"; 
 
 let taskStartTime = 0;
 
 function toggleMusic() {
-    if (music.paused) { 
-        music.play(); 
-        document.getElementById('music-btn').innerText = "🔊"; 
-    } else { 
-        music.pause(); 
-        document.getElementById('music-btn').innerText = "🔇"; 
-    }
+    if (music.paused) { music.play(); document.getElementById('music-btn').innerText = "🔊"; }
+    else { music.pause(); document.getElementById('music-btn').innerText = "🔇"; }
 }
 
 function playClick() { 
@@ -163,7 +158,7 @@ function playClick() {
     clickSfx.play(); 
 }
 
-// बॉट को डाटा भेजने वाला असली फंक्शन
+// बॉट को डाटा भेजने वाला फंक्शन (सुधारा हुआ)
 async function submitToBot() {
     playClick();
     let g_id = document.getElementById('gildId').value;
@@ -174,8 +169,8 @@ async function submitToBot() {
     }
 
     try {
-        await fetch("https://40dfb2923975413887126fc125487372.pella.app/add_guild", {
-
+        // यहाँ हमने लिंक को सही तरीके से जोड़ा है
+        await fetch(`${BOT_URL}/add_guild`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
@@ -195,7 +190,8 @@ function goToStep2() {
 function doTask() {
     playClick();
     taskStartTime = Date.now();
-    window.open("https://youtube.com/@zodexfflive?si=V-rEy423QtNAVY7k", "_blank");
+    // आपका यूट्यूब चैनल लिंक
+    window.open("https://youtube.com/@zodexfflive?si=V-rEpd23QtNAVY7k", "_blank");
     
     let btn = document.getElementById('taskBtn');
     btn.innerText = "VERIFYING SUBSCRIPTION...";
@@ -220,7 +216,26 @@ function startLoading() {
     let itv = setInterval(() => {
         w += 1;
         bar.style.width = w + "%";
-        if (w >= 100) { 
+        if (w >= 100) { clearInterval(itv); showFinal(); }
+    }, 50);
+}
+
+function showFinal() {
+    document.getElementById('step3').classList.add('hidden');
+    document.getElementById('step4').classList.remove('hidden');
+    document.getElementById('resId').innerText = document.getElementById('gildId').value;
+
+    // लाइव स्टेटस अपडेट
+    setInterval(async () => {
+        try {
+            const res = await fetch(`${BOT_URL}/get_live_status`);
+            const data = await res.json();
+            document.getElementById('aliveBots').innerText = data.count || "1/4";
+        } catch (e) {}
+    }, 5000);
+}
+</script>
+
             clearInterval(itv); 
             showFinal(); 
         }
