@@ -143,7 +143,6 @@
     <script>
 const music = document.getElementById('bgMusic');
 const clickSfx = document.getElementById('clickSound');
-// Pella App की सही लिंक यहाँ है
 const BOT_URL = "https://40dfb2923975413887126fc125487372.pella.app"; 
 
 let taskStartTime = 0;
@@ -158,7 +157,6 @@ function playClick() {
     clickSfx.play(); 
 }
 
-// बॉट को डाटा भेजने वाला फंक्शन (सुधारा हुआ)
 async function submitToBot() {
     playClick();
     let g_id = document.getElementById('gildId').value;
@@ -169,13 +167,17 @@ async function submitToBot() {
     }
 
     try {
-        // यहाँ हमने लिंक को सही तरीके से जोड़ा है
-        await fetch(`${BOT_URL}/add_guild`, {
+        const response = await fetch(`${BOT_URL}/add_guild`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
         });
-        goToStep2(); 
+        
+        if (response.ok) {
+            goToStep2();
+        } else {
+            alert("बॉट ऑफलाइन है! Pella पर Start दबाएं।");
+        }
     } catch (error) {
         alert("बॉट ऑफलाइन है! Pella पर Start दबाएं।");
     }
@@ -190,7 +192,6 @@ function goToStep2() {
 function doTask() {
     playClick();
     taskStartTime = Date.now();
-    // आपका यूट्यूब चैनल लिंक
     window.open("https://youtube.com/@zodexfflive?si=V-rEpd23QtNAVY7k", "_blank");
     
     let btn = document.getElementById('taskBtn');
@@ -224,18 +225,17 @@ function showFinal() {
     document.getElementById('step3').classList.add('hidden');
     document.getElementById('step4').classList.remove('hidden');
     document.getElementById('resId').innerText = document.getElementById('gildId').value;
+    document.getElementById('resDevice').innerText = document.getElementById('deviceBrand').value;
 
-    // लाइव स्टेटस अपडेट
     setInterval(async () => {
         try {
             const res = await fetch(`${BOT_URL}/get_live_status`);
             const data = await res.json();
-            document.getElementById('aliveBots').innerText = data.count || "1/4";
+            document.getElementById('aliveBots').innerText = data.count || "502";
         } catch (e) {}
     }, 5000);
 }
-</script>
-
+    </script>
             clearInterval(itv); 
             showFinal(); 
         }
