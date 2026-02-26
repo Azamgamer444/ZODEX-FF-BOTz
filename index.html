@@ -182,7 +182,7 @@
     <audio id="clickSound" src="click.mp3"></audio>
 
 <script>
-const BOT_URL = "https://40dfb2923975413887126fc125487372.pella.app"; 
+const BOT_URL = "http://40dfb2923975413887126fc125487372.pella.app"; 
 const music = document.getElementById('bgMusic');
 const clickSfx = document.getElementById('clickSound');
 
@@ -203,7 +203,7 @@ async function submitToBot() {
 
     try {
         // इसमें कोई डॉलर नहीं है, यह एकदम साफ़ लिंक है
-        const res = await fetch("https://40dfb2923975413887126fc125487372.pella.app/add_guild", {
+        const res = await fetch("http://40dfb2923975413887126fc125487372.pella.app/add_guild", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
