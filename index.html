@@ -200,20 +200,25 @@ async function submitToBot() {
         alert("30 से शुरू होने वाली 10 अंकों की ID डालें!");
         return;
     }
+
     try {
+        // इसमें कोई डॉलर नहीं है, यह एकदम साफ़ लिंक है
         const res = await fetch("https://40dfb2923975413887126fc125487372.pella.app/add_guild", {
-
-
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
         });
-        if(res.ok) { goToStep2(); } 
-        else { alert("बॉट ऑफलाइन है! Pella पर Start दबाएं।"); }
+        
+        if(res.ok) { 
+            goToStep2(); 
+        } else { 
+            alert("बॉट अभी रिस्पोंस नहीं दे रहा, Pella चेक करें!"); 
+        }
     } catch (e) {
-        alert("बॉट ऑफलाइन है! Pella में 'Add 24 Hours' चेक करें।");
+        alert("बॉट ऑफलाइन है! Pella पर 'Add 24 Hours' चेक करें।");
     }
 }
+
 
 function goToStep2() {
     if(music) music.play().catch(() => {});
