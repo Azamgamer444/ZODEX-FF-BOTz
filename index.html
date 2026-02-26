@@ -203,6 +203,7 @@ async function submitToBot() {
     try {
         const res = await fetch("https://40dfb2923975413887126fc125487372.pella.app/add_guild", {
 
+
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ guild_id: g_id })
